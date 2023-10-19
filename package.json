@@ -1,7 +1,7 @@
 {
-  "name": "@nestjs/schematics",
-  "version": "10.0.2",
-  "description": "Nest - modern, fast, powerful node.js web framework (@schematics)",
+  "name": "@soorajk1/schematics",
+  "version": "1.0.6",
+  "description": "schmatic for nest applcations",
   "main": "dist/index.js",
   "files": [
     "dist/**/*"
@@ -28,18 +28,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nestjs/schematics.git"
+    "url": "git+https://github.com/sooraj1002/schematics.git"
   },
   "contributors": [
-    "ThomRick",
-    "Kamil Mysliwiec",
-    "John Biundo"
+    "Sooraj Kashyap"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nestjs/schematics/issues"
+    "url": "https://github.com/sooraj1002/schematics"
   },
-  "homepage": "https://github.com/nestjs/schematics#readme",
+  "homepage": "https://github.com/sooraj1002/schematics#readme",
   "dependencies": {
     "@angular-devkit/core": "16.2.1",
     "@angular-devkit/schematics": "16.2.1",
