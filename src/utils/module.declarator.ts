@@ -15,6 +15,7 @@ export interface DeclarationOptions {
     name: string;
     value: Record<string, any>;
   };
+  isPackage: boolean;
 }
 
 export class ModuleDeclarator {

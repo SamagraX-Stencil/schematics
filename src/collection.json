@@ -122,6 +122,12 @@
       "description": "Create a Prisma service in nest applications service.",
       "schema": "./lib/service-prisma/schema.json",
       "aliases": ["sp"]
+    },
+    "service-user": {
+      "factory": "./lib/service-user/service-user.factory#main",
+      "description": "Add the User Service module from the package. ",
+      "schema": "./lib/service-user/schema.json",
+      "alases": ["su"]
     }
   }
 }

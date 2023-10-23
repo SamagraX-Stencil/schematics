@@ -15,7 +15,7 @@ export class ModuleImportDeclarator {
 
   private findImportsEndpoint(contentLines: string[]): number {
     const reversedContent = Array.from(contentLines).reverse();
-    const reverseImports = reversedContent.filter(line =>
+    const reverseImports = reversedContent.filter((line) =>
       line.match(/\} from ('|")/),
     );
     if (reverseImports.length <= 0) {
@@ -25,6 +25,9 @@ export class ModuleImportDeclarator {
   }
 
   private buildLineToInsert(options: DeclarationOptions): string {
+    if (options.isPackage) {
+      return `import { ${options.name} } from '${options.path}';`;
+    }
     return `import { ${options.symbol} } from '${this.computeRelativePath(
       options,
     )}';`;
@@ -32,6 +35,7 @@ export class ModuleImportDeclarator {
 
   private computeRelativePath(options: DeclarationOptions): string {
     let importModulePath: Path;
+    console.info('at start', importModulePath);
     if (options.type !== undefined) {
       importModulePath = normalize(
         `/${options.path}/${options.name}.${options.type}`,
@@ -39,6 +43,7 @@ export class ModuleImportDeclarator {
     } else {
       importModulePath = normalize(`/${options.path}/${options.name}`);
     }
+    console.info('at end', importModulePath);
     return this.solver.relative(options.module, importModulePath);
   }
 }

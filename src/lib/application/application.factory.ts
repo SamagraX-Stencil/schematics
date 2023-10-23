@@ -49,6 +49,8 @@ function transform(options: ApplicationOptions): ApplicationOptions {
   target.devDependencies = !!target.devDependencies
     ? target.devDependencies
     : '';
+
+  target.prisma = !!target.prisma ? target.prisma : 'false';
   return target;
 }
 

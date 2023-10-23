@@ -5,10 +5,7 @@
   "type": "object",
   "properties": {
     "name": {
-      "oneOf": [
-        { "type": "string" },
-        { "type": "number" }
-      ],
+      "oneOf": [{ "type": "string" }, { "type": "number" }],
       "description": "The name of the application.",
       "$default": {
         "$source": "argv",
@@ -55,7 +52,12 @@
     "devDependencies": {
       "type": "string",
       "description": "Nest application development dependencies."
+    },
+    "prisma": {
+      "type": "string",
+      "description": "Bootstrap the application with prisma setup",
+      "x-prompt": "Would you like to set this project up with prisma or not?"
     }
   },
-  "required": ["name"]
+  "required": ["name", "prisma"]
 }
