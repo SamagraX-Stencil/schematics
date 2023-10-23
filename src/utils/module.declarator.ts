@@ -6,16 +6,16 @@ import { ModuleMetadataDeclarator } from './module-metadata.declarator';
 export interface DeclarationOptions {
   metadata: string;
   type?: string;
-  name: string;
-  className?: string;
-  path: Path;
+  name: string; //this is the name added in the import statement(when using package)
+  className?: string; //this is the name which is added in the imports array of a module
+  path: Path; //this is the path/the npm package name
   module: Path;
-  symbol?: string;
+  symbol?: string; //this is added in top import statement and import array under normal circumstances
   staticOptions?: {
     name: string;
     value: Record<string, any>;
   };
-  isPackage: boolean;
+  isPackage: boolean; //if it is a custom npm package, then we have different initialisation
 }
 
 export class ModuleDeclarator {
