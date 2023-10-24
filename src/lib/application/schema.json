@@ -56,8 +56,13 @@
     "prisma": {
       "type": "string",
       "description": "Bootstrap the application with prisma setup",
-      "x-prompt": "Would you like to set this project up with prisma or not?"
+      "x-prompt": "Would you like to set this project up with prisma?"
+    },
+    "userService": {
+      "type": "string",
+      "description": "Bootstrap the application with user-service setup",
+      "x-prompt": "Would you like to set this project up with user-service?"
     }
   },
-  "required": ["name", "prisma"]
+  "required": ["name", "prisma", "userService"]
 }

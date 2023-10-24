@@ -51,6 +51,8 @@ function transform(options: ApplicationOptions): ApplicationOptions {
     : '';
 
   target.prisma = !!target.prisma ? target.prisma : 'false';
+  target.userService = !!target.userService ? target.userService : 'false';
+
   return target;
 }
 
