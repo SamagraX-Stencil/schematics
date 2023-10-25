@@ -1,6 +1,6 @@
 {
   "name": "@soorajk1/schematics",
-  "version": "1.0.31",
+  "version": "1.2.1",
   "description": "schmatic for nest applcations",
   "main": "dist/index.js",
   "files": [
