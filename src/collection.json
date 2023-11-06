@@ -146,6 +146,11 @@
       "description": "Generate Custom github Files",
       "schema": "./lib/github/schema.json",
       "aliases": ["gh"]
+    },
+    "prisma": {
+      "factory": "./lib/prisma/prisma.factory#main",
+      "description": "Add custom prisma models to the schema.prisma file",
+      "schema": "./lib/prisma/schema.json"
     }
   }
 }

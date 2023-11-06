@@ -20,7 +20,6 @@ export function main(options: ServiceOptions): Rule {
 }
 
 function addImportToModule(options: ServiceOptions): Rule {
-  console.log(options.path);
   return (tree: Tree) => {
     if (!options.path) {
       options.path = '/src';
@@ -46,11 +45,6 @@ function addImportToModule(options: ServiceOptions): Rule {
       path: `@techsavvyash/user-service` as Path,
       isPackage: true,
     } as DeclarationOptions);
-
-    // Update the content of the app.module.ts
-    console.info('Before the final');
-    console.info(options.module);
-    console.info(content);
 
     tree.overwrite(options.module, content);
 
