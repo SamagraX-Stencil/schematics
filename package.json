@@ -1,5 +1,5 @@
 {
-  "name": "@soorajk1/working-schematics",
+  "name": "@soorajk1/test-schematics",
   "version": "0.0.1",
   "description": "schmatic for nest applcations",
   "main": "dist/index.js",
