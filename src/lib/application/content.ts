@@ -1,4 +1,4 @@
-NODE_ENV=development
+export const content = `NODE_ENV=development
 APP_PORT=3000
 APP_NAME="NestJS API"
 API_PREFIX=api
@@ -64,4 +64,4 @@ TWITTER_CONSUMER_SECRET=
 WORKER_HOST=redis://redis:6379/1
 
 DATABASE_URL="postgresql://root:secret@postgres:5432/api"
-SHADOW_DATABASE_URL="postgresql://root:secret@shadow-postgres:5432/shadow"
+SHADOW_DATABASE_URL="postgresql://root:secret@shadow-postgres:5432/shadow"`;

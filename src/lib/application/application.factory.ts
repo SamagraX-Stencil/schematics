@@ -1,11 +1,14 @@
 import { join, Path, strings } from '@angular-devkit/core';
 import {
   apply,
+  chain,
   mergeWith,
   move,
   Rule,
+  SchematicContext,
   Source,
   template,
+  Tree,
   url,
 } from '@angular-devkit/schematics';
 import { basename, parse } from 'path';
@@ -17,6 +20,7 @@ import {
   DEFAULT_VERSION,
 } from '../defaults';
 import { ApplicationOptions } from './application.schema';
+import { content } from './content';
 
 export function main(options: ApplicationOptions): Rule {
   options.name = normalizeToKebabOrSnakeCase(options.name.toString());
@@ -27,7 +31,7 @@ export function main(options: ApplicationOptions): Rule {
       : options.directory;
 
   options = transform(options);
-  return mergeWith(generate(options, path));
+  return chain([mergeWith(generate(options, path)), createEnvFile(path)]);
 }
 
 function transform(options: ApplicationOptions): ApplicationOptions {
@@ -86,4 +90,17 @@ function generate(options: ApplicationOptions, path: string): Source {
     }),
     move(path),
   ]);
+}
+
+function createEnvFile(path): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    console.info('this is path', path);
+    const envFilePath = `${path}/env-example`;
+
+    tree.create(envFilePath, content);
+
+    context.logger.info(`File "${envFilePath}" created successfully.`);
+
+    return tree;
+  };
 }
