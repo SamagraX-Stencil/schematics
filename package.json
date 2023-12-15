@@ -1,7 +1,7 @@
 {
-  "name": "@soorajk1/schematics",
-  "version": "1.3.2",
-  "description": "schmatic for nest applcations",
+  "name": "@samagra-x/schematics",
+  "version": "0.0.1",
+  "description": "schematics for stencil applcations",
   "main": "dist/index.js",
   "files": [
     "dist/**/*"
@@ -28,16 +28,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sooraj1002/schematics.git"
+    "url": "git+https://github.com/samagrax-stencil/schematics.git"
   },
   "contributors": [
     "Sooraj Kashyap"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sooraj1002/schematics"
+    "url": "https://github.com/samagrax-stencil/schematics"
   },
-  "homepage": "https://github.com/sooraj1002/schematics#readme",
+  "homepage": "https://github.com/samagrax-stencil/schematics#readme",
   "dependencies": {
     "@angular-devkit/core": "16.2.1",
     "@angular-devkit/schematics": "16.2.1",
