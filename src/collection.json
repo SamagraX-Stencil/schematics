@@ -156,6 +156,16 @@
       "factory": "./lib/devcontainer/devcontainer.factory#main",
       "description": "Generate files in a .devcontainer file",
       "schema": "./lib/devcontainer/schema.json"
+    },
+    "monitorModule": {
+      "factory": "./lib/monitorModule/monitorModule.factory#main",
+      "description": "Generate monitorModule files",
+      "schema": "./lib/monitorModule/schema.json"
+    },
+    "monitor": {
+      "factory": "./lib/monitor/monitor.factory#main",
+      "description": "Generate monitor folder",
+      "schema": "./lib/monitor/schema.json"
     }
   }
 }

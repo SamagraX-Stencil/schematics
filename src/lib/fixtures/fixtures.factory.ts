@@ -10,6 +10,7 @@ import {
   url,
 } from '@angular-devkit/schematics';
 import { FixtureOptions } from './fixtures.schema';
+import { dockerfileContent } from './dockerfileContent';
 
 export function main(options: FixtureOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -29,6 +30,21 @@ export function generateFiles(
       [move(path)],
     );
 
-    return chain([mergeWith(sourceTemplate)])(tree, context);
+    return chain([
+      mergeWith(sourceTemplate),
+      createDockerfile(options, path), // Call createDockerfile function here
+    ])(tree, context);
+  };
+}
+
+function createDockerfile(options: FixtureOptions, path: string): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const dockerfilePath = `${path}/Dockerfile`;
+
+    tree.create(dockerfilePath, dockerfileContent);
+
+    context.logger.info(`File "${dockerfilePath}" created successfully.`);
+
+    return tree;
   };
 }

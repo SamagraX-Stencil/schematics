@@ -2,6 +2,9 @@
   "name": "@samagra-x/schematics",
   "version": "0.0.1",
   "description": "schematics for stencil applcations",
+  "name": "@samagra-x/schematics",
+  "version": "0.0.1",
+  "description": "schematics for stencil applcations",
   "main": "dist/index.js",
   "files": [
     "dist/**/*"
@@ -28,16 +31,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/samagrax-stencil/schematics.git"
+    "url": "git+https://github.com/SamagraX-Stencil/schematics"
   },
   "contributors": [
     "Sooraj Kashyap"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/samagrax-stencil/schematics"
+    "url": "https://github.com/SamagraX-Stencil/schematics"
   },
-  "homepage": "https://github.com/samagrax-stencil/schematics#readme",
+  "homepage": "https://github.com/SamagraX-Stencil/schematics",
   "dependencies": {
     "@angular-devkit/core": "16.2.1",
     "@angular-devkit/schematics": "16.2.1",
