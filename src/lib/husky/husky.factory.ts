@@ -1,14 +1,5 @@
 import { join, Path } from '@angular-devkit/core';
-import {
-  apply,
-  chain,
-  mergeWith,
-  move,
-  Rule,
-  SchematicContext,
-  Tree,
-  url,
-} from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { HuskyOptions } from './husky.schema';
 import { preCommit } from './pre-commit';
 

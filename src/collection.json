@@ -14,138 +14,184 @@
       "factory": "./lib/class/class.factory#main",
       "description": "Create a new class.",
       "schema": "./lib/class/schema.json",
-      "aliases": ["cl"]
+      "aliases": [
+        "cl"
+      ]
     },
     "controller": {
       "factory": "./lib/controller/controller.factory#main",
       "description": "Creathttps://github.com/nestjs/schematicse a Nest controller.",
       "schema": "./lib/controller/schema.json",
-      "aliases": ["co"]
+      "aliases": [
+        "co"
+      ]
     },
     "decorator": {
       "factory": "./lib/decorator/decorator.factory#main",
       "description": "Create a Nest decorator.",
       "schema": "./lib/decorator/schema.json",
-      "aliases": ["d"]
+      "aliases": [
+        "d"
+      ]
     },
     "filter": {
       "factory": "./lib/filter/filter.factory#main",
       "description": "Create a Nest filter.",
       "schema": "./lib/filter/schema.json",
-      "aliases": ["f"]
+      "aliases": [
+        "f"
+      ]
     },
     "gateway": {
       "factory": "./lib/gateway/gateway.factory#main",
       "description": "Create a Nest gateway.",
       "schema": "./lib/gateway/schema.json",
-      "aliases": ["ga"]
+      "aliases": [
+        "ga"
+      ]
     },
     "guard": {
       "factory": "./lib/guard/guard.factory#main",
       "description": "Create a Nest guard.",
       "schema": "./lib/guard/schema.json",
-      "aliases": ["gu"]
+      "aliases": [
+        "gu"
+      ]
     },
     "interceptor": {
       "factory": "./lib/interceptor/interceptor.factory#main",
       "description": "Create a Nest interceptor.",
       "schema": "./lib/interceptor/schema.json",
-      "aliases": ["itc"]
+      "aliases": [
+        "itc"
+      ]
     },
     "interface": {
       "factory": "./lib/interface/interface.factory#main",
       "description": "Create a Nest interface.",
       "schema": "./lib/interface/schema.json",
-      "aliases": ["itf"]
+      "aliases": [
+        "itf"
+      ]
     },
     "middleware": {
       "factory": "./lib/middleware/middleware.factory#main",
       "description": "Create a Nest middleware.",
       "schema": "./lib/middleware/schema.json",
-      "aliases": ["mi"]
+      "aliases": [
+        "mi"
+      ]
     },
     "module": {
       "factory": "./lib/module/module.factory#main",
       "description": "Create a Nest module.",
       "schema": "./lib/module/schema.json",
-      "aliases": ["mo"]
+      "aliases": [
+        "mo"
+      ]
     },
     "pipe": {
       "factory": "./lib/pipe/pipe.factory#main",
       "description": "Create a Nest pipe.",
       "schema": "./lib/pipe/schema.json",
-      "aliases": ["pi"]
+      "aliases": [
+        "pi"
+      ]
     },
     "provider": {
       "factory": "./lib/provider/provider.factory#main",
       "description": "Create a Nest provider.",
       "schema": "./lib/provider/schema.json",
-      "aliases": ["pr"]
+      "aliases": [
+        "pr"
+      ]
     },
     "service": {
       "factory": "./lib/service/service.factory#main",
       "description": "Create a Nest service.",
       "schema": "./lib/service/schema.json",
-      "aliases": ["s"]
+      "aliases": [
+        "s"
+      ]
     },
     "resolver": {
       "factory": "./lib/resolver/resolver.factory#main",
       "description": "Create a Nest resolver.",
       "schema": "./lib/resolver/schema.json",
-      "aliases": ["r"]
+      "aliases": [
+        "r"
+      ]
     },
     "configuration": {
       "factory": "./lib/configuration/configuration.factory#main",
       "description": "Create a Nest CLI configuration.",
-      "aliases": ["config"]
+      "aliases": [
+        "config"
+      ]
     },
     "library": {
       "factory": "./lib/library/library.factory#main",
       "description": "Create a Nest library (mono-repo).",
       "schema": "./lib/library/schema.json",
-      "aliases": ["lib"]
+      "aliases": [
+        "lib"
+      ]
     },
     "sub-app": {
       "factory": "./lib/sub-app/sub-app.factory#main",
       "description": "Create a Nest application (mono-repo).",
       "schema": "./lib/sub-app/schema.json",
-      "aliases": ["app"]
+      "aliases": [
+        "app"
+      ]
     },
     "resource": {
       "factory": "./lib/resource/resource.factory#main",
       "description": "Create a Nest resource.",
       "schema": "./lib/resource/schema.json",
-      "aliases": ["res"]
+      "aliases": [
+        "res"
+      ]
     },
     "service-prisma": {
       "factory": "./lib/service-prisma/service-prisma.factory#main",
       "description": "Create a Prisma service in nest applications service.",
       "schema": "./lib/service-prisma/schema.json",
-      "aliases": ["sp"]
+      "aliases": [
+        "sp"
+      ]
     },
     "service-user": {
       "factory": "./lib/service-user/service-user.factory#main",
       "description": "Add the User Service module from the package. ",
       "schema": "./lib/service-user/schema.json",
-      "aliases": ["su"]
+      "aliases": [
+        "su"
+      ]
     },
     "fixtures": {
       "factory": "./lib/fixtures/fixtures.factory#main",
       "description": "Generate Custom Fixtures Files",
       "schema": "./lib/fixtures/schema.json",
-      "aliases": ["fs"]
+      "aliases": [
+        "fs"
+      ]
     },
     "husky": {
       "factory": "./lib/husky/husky.factory#main",
       "description": "Generate Custom husky Files",
       "schema": "./lib/husky/schema.json",
-      "aliases": ["hs"]
+      "aliases": [
+        "hs"
+      ]
     },
     "github": {
       "factory": "./lib/github/github.factory#main",
       "description": "Generate Custom github Files",
       "schema": "./lib/github/schema.json",
-      "aliases": ["gh"]
+      "aliases": [
+        "gh"
+      ]
     },
     "prisma": {
       "factory": "./lib/prisma/prisma.factory#main",
@@ -176,6 +222,11 @@
       "factory": "./lib/service-temporal/service-temporal.factory#main",
       "description": "Add imports to app.module.ts and generate the temporal folder",
       "schema": "./lib/service-temporal/schema.json"
+    },
+    "logging": {
+      "factory": "./lib/logging/logging.factory#main",
+      "description": "generate the logging folder in services",
+      "schema": "./lib/logging/schema.json"
     }
   }
 }

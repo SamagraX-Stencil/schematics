@@ -16,7 +16,7 @@ import {
 } from '../../utils/module.declarator';
 import { ModuleFinder } from '../../utils/module.finder';
 import { TemporalServiceOptions } from './service-temporal.schema';
-import { import_register } from './inports';
+import { import_register } from './imports';
 
 export function main(options: TemporalServiceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {

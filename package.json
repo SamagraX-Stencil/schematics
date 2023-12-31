@@ -1,5 +1,5 @@
 {
-  "name": "@slimshady999/schematics",
+  "name": "@samagra-x/schematics",
   "version": "0.0.2",
   "description": "schematics for stencil applcations",
   "main": "dist/index.js",
