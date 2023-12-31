@@ -1,4 +1,5 @@
-export const import_register = `TemporalModule.registerWorker({
+export const import_register = `
+    TemporalModule.registerWorker({
       workerOptions: {
         namespace: 'default',
         taskQueue: 'default',
@@ -8,4 +9,5 @@ export const import_register = `TemporalModule.registerWorker({
         },
       },
     }),
-    TemporalModule.registerClient(),`
+    TemporalModule.registerClient(),
+  `;

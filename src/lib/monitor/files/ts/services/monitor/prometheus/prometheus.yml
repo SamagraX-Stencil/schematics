@@ -4,7 +4,7 @@ global:
 scrape_configs:
   - job_name: 'Example Service'
     static_configs:
-      - targets: ['host.docker.internal:4000/api']
+      - targets: ['host.docker.internal:3000']
   
   - job_name: 'nodeexporter'
     static_configs:
