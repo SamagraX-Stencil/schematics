@@ -166,6 +166,16 @@
       "factory": "./lib/monitor/monitor.factory#main",
       "description": "Generate monitor folder",
       "schema": "./lib/monitor/schema.json"
+    },
+    "service-file-upload": {
+      "factory": "./lib/service-file-upload/service-file-upload.factory#main",
+      "description": "Generate monitor folder",
+      "schema": "./lib/service-file-upload/schema.json"
+    },
+    "service-temporal": {
+      "factory": "./lib/service-temporal/service-temporal.factory#main",
+      "description": "Add imports to app.module.ts and generate the temporal folder",
+      "schema": "./lib/service-temporal/schema.json"
     }
   }
 }

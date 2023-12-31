@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "ServiceFileUploadSchema",
+  "title": "Custom File Upload Module Insertion",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "The path where you want to add the import is located."
+    }
+  }
+}

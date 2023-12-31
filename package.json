@@ -1,9 +1,6 @@
 {
   "name": "@samagra-x/schematics",
-  "version": "0.0.1",
-  "description": "schematics for stencil applcations",
-  "name": "@samagra-x/schematics",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "schematics for stencil applcations",
   "main": "dist/index.js",
   "files": [
