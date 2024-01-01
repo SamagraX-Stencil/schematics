@@ -1,4 +1,4 @@
-import { join, Path, strings } from '@angular-devkit/core';
+import { Path } from '@angular-devkit/core';
 import {
   branchAndMerge,
   chain,
@@ -15,7 +15,9 @@ import { MonitorOptions } from './monitorModule.schema';
 
 export function main(options: MonitorOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    return branchAndMerge(chain([addMonitorToModule(options)]))(tree, context);
+    return branchAndMerge(
+      chain([addMonitorToModule(options), addPromethiusController(options)]),
+    )(tree, context);
   };
 }
 
@@ -29,45 +31,45 @@ function addMonitorToModule(options: MonitorOptions): Rule {
     });
 
     if (!options.module) {
-      console.error(
-        'App module not found. Could not add the service (monitor)',
-      );
+      console.error('App module not found. Could not add monitor');
       return tree;
     }
+
+    console.info('hello from first');
 
     let content = tree.read(options.module).toString();
     const declarator: ModuleDeclarator = new ModuleDeclarator();
 
     // Modify the imports array to include monitoringModule
-    options.path = '@techsavvyash/nestjs-monitor';
+    options.path = '@samagra-x/stencil';
     content = declarator.declare(content, {
       name: 'MonitoringModule',
       metadata: 'imports',
       className: 'MonitoringModule',
-      path: `@techsavvyash/nestjs-monitor` as Path,
+      path: `@samagra-x/stencil` as Path,
       isPackage: true,
     } as DeclarationOptions);
 
     tree.overwrite(options.module, content);
 
-    let promethiusContent = tree.read(options.module).toString();
-    const promethiusDeclarator: ModuleDeclarator = new ModuleDeclarator();
+    return tree;
+  };
+}
 
-    // Modify the imports array to register promethius
-    options.path = '@willsoto/nestjs-prometheus';
-    promethiusContent = promethiusDeclarator.declare(promethiusContent, {
-      name: 'PrometheusModule',
-      metadata: 'imports',
-      className: `PrometheusModule.register({
-      defaultMetrics: {
-        enabled: false,
-      },
-    }),`,
-      path: `@willsoto/nestjs-prometheus` as Path,
+function addPromethiusController(options: MonitorOptions): Rule {
+  return (tree: Tree) => {
+    const content = tree.read(options.module).toString();
+    const declarator: ModuleDeclarator = new ModuleDeclarator();
+
+    options.path = '@samagra-x/stencil';
+    const updatedContent = declarator.declare(content, {
+      name: 'PrometheusController',
+      metadata: 'controllers',
+      className: 'PrometheusController',
+      path: `@samagra-x/stencil` as Path,
       isPackage: true,
     } as DeclarationOptions);
-
-    tree.overwrite(options.module, promethiusContent);
+    tree.overwrite(options.module, updatedContent);
 
     return tree;
   };

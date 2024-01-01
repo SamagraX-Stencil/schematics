@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "TemporalServiceSchema",
+  "title": "Setup Temporal in your stencil/nest app",
+  "type": "object",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "The path where you want to add the import is located."
+    },
+    "language": {
+      "type": "string",
+      "description": "The source root path."
+    }
+  }
+}

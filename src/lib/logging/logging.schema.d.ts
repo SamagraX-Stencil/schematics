@@ -1,7 +1,6 @@
 import { Path } from '@angular-devkit/core';
 
-export interface MonitorOptions {
-  name?: string;
+export interface LoggingOptions {
   /**
    * The path to create the service.
    */
@@ -23,4 +22,5 @@ export interface MonitorOptions {
    */
   sourceRoot?: string;
   flat?: boolean;
+  language?: string;
 }
