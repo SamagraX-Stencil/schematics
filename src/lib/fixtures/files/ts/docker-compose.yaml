@@ -52,13 +52,23 @@ services:
       POSTGRES_PASSWORD: ${SHADOW_DATABASE_PASSWORD}
       POSTGRES_DB: ${SHADOW_DATABASE_NAME}
 
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6380:6379'
+    command: redis-server --save 20 1
+    volumes:
+      - cache:/data
+
   api:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 4000:4000
+      - 3000:3000
 volumes:
   fa-config:
+  cache:
 networks:
   default:
