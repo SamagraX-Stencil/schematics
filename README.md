@@ -7,7 +7,7 @@ Custom schematics can streamline the process of generating code and adding featu
 2. **Install the Custom Schematics Package**: In your project's root directory, install the custom schematics package by running the following command:
 
    ```sh
-   npm install @soorajk1/schematics
+   npm install @samagra-x/schematics
    ```
 
 3. Modify the contents of your `nest-cli.json` file to the following
@@ -15,7 +15,7 @@ Custom schematics can streamline the process of generating code and adding featu
    ```json
    {
      "$schema": "https://json.schemastore.org/nest-cli",
-     "collection": "@soorajk1/schematics",
+     "collection": "@samagra-x/schematics",
      "sourceRoot": "src",
      "compilerOptions": {
        "deleteOutDir": true
