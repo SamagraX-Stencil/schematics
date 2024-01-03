@@ -23,4 +23,10 @@ Custom schematics can streamline the process of generating code and adding featu
    }
    ```
 
-Now, You can use commands like nest generate like normal, along with arguments like `nest g service-prisma prisma` to generate custom service
+Now, You can use commands like nest generate like normal, along with arguments like `nest g <CUSTOME_STENCIL_SERVICE_NAME>` to generate custom service.
+Currently supported services are:
+- Prisma
+- Monitoring Using Prometheus and Grafana
+- Temporal
+- Logging
+- File Upload
