@@ -1,13 +1,11 @@
 #!/bin/bash
 
-cp env-example .env
-
 if [ -f ".env" ]; then
     mv .env .env.bak
 fi
 
 ## move env-example to .env
-mv env-example .env
+cp env-example .env
 docker compose up -d
 
 LOGGING_DIR="./services/logging"

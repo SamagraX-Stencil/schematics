@@ -26,7 +26,6 @@
 // SHADOW_DATABASE_PASSWORD=secret
 // SHADOW_DATABASE_NAME=shadow
 
-
 // # Support "local", "s3"
 // FILE_DRIVER=local
 // ACCESS_KEY_ID=
@@ -67,18 +66,18 @@
 // SHADOW_DATABASE_URL="postgresql://root:secret@shadow-postgres:5432/shadow"`;
 
 export const content = `NODE_ENV=development
-APP_PORT=4000
+APP_PORT=3000
 APP_NAME="NestJS API"
 API_PREFIX=api
 APP_FALLBACK_LANGUAGE=en
 APP_HEADER_LANGUAGE=x-custom-lang
-FRONTEND_DOMAIN=http://localhost:4000
-BACKEND_DOMAIN=http://localhost:4000
+FRONTEND_DOMAIN=http://localhost:3000
+BACKEND_DOMAIN=http://localhost:3000
 
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 DATABASE_TYPE=postgres
-DATABASE_HOST=localhost
+DATABASE_HOST=postgres
 DATABASE_PORT=5432
 DATABASE_USERNAME=root
 DATABASE_PASSWORD=secret

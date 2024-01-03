@@ -139,12 +139,7 @@ function createEnvFile(options: TemporalServiceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const envFilePath = `./services/temporal/.env`;
 
-    console.info('this is the envFilePath');
-    console.info(envFilePath);
-
     tree.create(envFilePath, content);
-
-    context.logger.info(`File "${envFilePath}" created successfully.`);
 
     return tree;
   };
