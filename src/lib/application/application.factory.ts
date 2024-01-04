@@ -94,12 +94,9 @@ function generate(options: ApplicationOptions, path: string): Source {
 
 function createEnvFile(path): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    console.info('this is path', path);
     const envFilePath = `${path}/env-example`;
 
     tree.create(envFilePath, content);
-
-    context.logger.info(`File "${envFilePath}" created successfully.`);
 
     return tree;
   };
