@@ -16,6 +16,7 @@ import { elasticsearch } from './Dockerfile content/elasticsearch';
 import { kibana } from './Dockerfile content/kibana';
 import { logstash } from './Dockerfile content/logstash';
 import { setup } from './Dockerfile content/setup';
+import { content } from './env-content';
 
 export function main(options: LoggingOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -26,6 +27,7 @@ export function main(options: LoggingOptions): Rule {
         generateKibana,
         generateLogstash,
         generateSetup,
+        createEnvFile(),
       ]),
     )(tree, context);
   };
@@ -81,6 +83,16 @@ function generateSetup(): Rule {
 
     const setupPath = join(path as Path, 'Dockerfile');
     tree.create(setupPath, setup);
+    return tree;
+  };
+}
+
+function createEnvFile(): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const envFilePath = `./services/logging/.env`;
+
+    tree.create(envFilePath, content);
+
     return tree;
   };
 }

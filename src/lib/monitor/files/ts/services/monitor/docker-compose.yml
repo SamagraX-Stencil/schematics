@@ -20,7 +20,7 @@ services:
     command:
       - --config.file=/etc/prometheus/prometheus.yml
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - 'host.docker.internal:host-gateway'
 
   grafana:
     image: grafana/grafana
@@ -32,7 +32,7 @@ services:
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - 'host.docker.internal:host-gateway'
 
   nodeexporter:
     image: prom/node-exporter:v1.6.1
@@ -48,7 +48,7 @@ services:
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     restart: unless-stopped
     labels:
-      org.label-schema.group: "monitoring"
+      org.label-schema.group: 'monitoring'
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.1
@@ -63,21 +63,10 @@ services:
       - /var/lib/docker/:/var/lib/docker:ro
     restart: unless-stopped
     labels:
-      org.label-schema.group: "monitoring"
-
-  # example:
-  #   build: 
-  #     context: ../example
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     # - 5000:5000
-  #     - 4000:4000
-  #   extra_hosts:
-  #     - "host.docker.internal:host-gateway"
+      org.label-schema.group: 'monitoring'
 
 volumes:
   grafana:
   prometheus_data:
   cache:
     driver: local
-

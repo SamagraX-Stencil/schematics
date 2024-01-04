@@ -56,17 +56,17 @@ services:
     image: redis:6.2-alpine
     restart: always
     ports:
-      - '6380:6379'
+      - '${CACHE_PORT}:6379'
     command: redis-server --save 20 1
     volumes:
       - cache:/data
 
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - 3000:3000
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - 3000:3000
 volumes:
   fa-config:
   cache:

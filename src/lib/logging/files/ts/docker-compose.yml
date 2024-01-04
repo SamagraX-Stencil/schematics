@@ -24,9 +24,9 @@ services:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
     init: true
     volumes:
-      - ./services/logging/setup/entrypoint.sh:/entrypoint.sh:ro,Z
-      - ./services/logging/setup/lib.sh:/lib.sh:ro,Z
-      - ./services/logging/setup/roles:/roles:ro,Z
+      - ./setup/entrypoint.sh:/entrypoint.sh:ro,Z
+      - ./setup/lib.sh:/lib.sh:ro,Z
+      - ./setup/roles:/roles:ro,Z
     environment:
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-}
       LOGSTASH_INTERNAL_PASSWORD: ${LOGSTASH_INTERNAL_PASSWORD:-}
@@ -47,7 +47,7 @@ services:
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
     volumes:
-      - ./services/logging/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
       - elasticsearch:/usr/share/elasticsearch/data:Z
     ports:
       - 9200:9200
@@ -67,8 +67,8 @@ services:
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
     volumes:
-      - ./services/logging/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
-      - ./services/logging/logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro,Z
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro,Z
+      - ./logstash/pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro,Z
     ports:
       - 5044:5044
       - 50000:50000/tcp
@@ -89,7 +89,7 @@ services:
       args:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
     volumes:
-      - ./services/logging/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
+      - ./kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
     ports:
       - 5601:5601
     environment:
@@ -105,14 +105,14 @@ services:
     ports:
       - '12201:12201/udp'
     volumes:
-      - ./services/logging/logstash/pipeline/axiom.conf:/usr/share/logstash/pipeline/logstash.conf
+      - ./logstash/pipeline/axiom.conf:/usr/share/logstash/pipeline/logstash.conf
     command: logstash -f /usr/share/logstash/pipeline/
 
   cache:
     image: redis:6.2-alpine
     restart: always
     ports:
-      - '6379:6379'
+      - '${CACHE_PORT}:6379'
     command: redis-server --save 20 1
     volumes:
       - cache:/data
