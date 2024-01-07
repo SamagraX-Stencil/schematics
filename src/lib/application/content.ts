@@ -78,7 +78,7 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
 DATABASE_TYPE=postgres
 DATABASE_HOST=postgres
-DATABASE_PORT=7000
+DATABASE_PORT=9898
 DATABASE_USERNAME=root
 DATABASE_PASSWORD=secret
 DATABASE_NAME=api
@@ -132,8 +132,8 @@ TWITTER_CONSUMER_SECRET=
 
 WORKER_HOST=redis://redis:6379/1
 
-DATABASE_URL="postgresql://root:secret@localhost:5432/api"
-SHADOW_DATABASE_URL="postgresql://root:secret@localhost:5432/shadow"
+DATABASE_URL="postgresql://root:secret@localhost:9898/api"
+SHADOW_DATABASE_URL="postgresql://root:secret@localhost:7001/shadow"
 
 FUSIONAUTH_APPLICATION_ID="f0ddb3f6-091b-45e4-8c0f-889f89d4f5da"
 FUSIONAUTH_SAMARTH_HP_APPLICATION_ID=f18c3f6f-45b8-4928-b978-a9906fd03f22
