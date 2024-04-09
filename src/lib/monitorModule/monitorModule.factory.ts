@@ -35,8 +35,6 @@ function addMonitorToModule(options: MonitorOptions): Rule {
       return tree;
     }
 
-    console.info('hello from first');
-
     let content = tree.read(options.module).toString();
     const declarator: ModuleDeclarator = new ModuleDeclarator();
 
