@@ -14,9 +14,8 @@ export class ModuleImportDeclarator {
 }
 
 private mergeImportStatements(contentLines: string[], finalImportIndex: number, toInsert: string, options: DeclarationOptions): string[] {
-  const existingImportLineIndex = contentLines.findIndex(line =>
-    line.startsWith(`import {`) && line.includes(`} from '${options.path}';`)
-  );
+  const importPattern = new RegExp(`^\\s*import\\s*{[^}]*}\\s*from\\s*['"]${options.path}['"];`, 'gm');
+  const existingImportLineIndex = contentLines.findIndex(line => importPattern.test(line));
 
   if (existingImportLineIndex !== -1) {
     const existingImportLine = contentLines[existingImportLineIndex];
