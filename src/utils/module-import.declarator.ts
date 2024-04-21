@@ -14,7 +14,7 @@ export class ModuleImportDeclarator {
 }
 
 private mergeImportStatements(contentLines: string[], finalImportIndex: number, toInsert: string, options: DeclarationOptions): string[] {
-  const importPattern = new RegExp(`^\\s*import\\s*{[^}]*}\\s*from\\s*['"]${options.path}['"];`, 'gm');
+  const importPattern = new RegExp(`^\\s*import\\s*{[^}]*}\\s*from\\s*(['"])${options.path.replace(/'/g, '')}\\1;?`, 'gm');
   const existingImportLineIndex = contentLines.findIndex(line => importPattern.test(line));
 
   if (existingImportLineIndex !== -1) {
@@ -25,11 +25,8 @@ private mergeImportStatements(contentLines: string[], finalImportIndex: number, 
     const existingSymbols = existingImportLine.substring(startIndex, endIndex).trim().split(',').map(symbol => symbol.trim());
     const newSymbols = toInsert.substring(toInsert.indexOf('{') + 1, toInsert.lastIndexOf('}')).trim().split(',').map(symbol => symbol.trim());
     
-    const mergedSymbols = [...new Set(existingSymbols.concat(newSymbols))]; 
-    
-    const updatedImportLine = existingImportLine.substring(0, startIndex) +
-                              mergedSymbols.join(', ') +
-                              existingImportLine.substring(endIndex);
+    const mergedSymbols = [...new Set(existingSymbols.concat(newSymbols))];
+    const updatedImportLine = `import { ${mergedSymbols.join(', ')} } from '${options.path.replace(/'/g, '')}';`;
 
     contentLines[existingImportLineIndex] = updatedImportLine;
   } else {
