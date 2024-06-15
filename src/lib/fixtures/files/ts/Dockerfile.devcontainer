@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 # Copy the package.json and package-lock.json files to the container
 COPY package*.json ./
 
-RUN npm i -g @nestjs/cli @samagra-x/stencil-cli typescript ts-node
+RUN npm i -g @samagra-x/stencil-cli typescript ts-node
 
 # Install dependencies
 RUN npm install
@@ -16,10 +16,14 @@ RUN npm install
 COPY . .
 
 # Build the NestJS application
-RUN npx prisma generate
+
 RUN npm run build
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Set environment variable (default value, can be overridden by .env)
+ENV PORT 3000
+ENV NODE_ENV development
 
-CMD ["npm", "run", "start:dev"]
+# Expose the port the app runs on
+EXPOSE ${PORT}
+
+CMD ["sh", "-c", "if [ \"$NODE_ENV\" = \"production\" ]; then npm run start:prod; else npm run start:dev; fi"]

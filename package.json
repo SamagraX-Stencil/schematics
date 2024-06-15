@@ -24,7 +24,8 @@
     "test:dev": "NODE_ENV=test npm run -s test -- --watchAll",
     "prerelease": "npm run build",
     "release": "release-it",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prettier": "prettier '{src,test}/**/*.ts' --watch ."
   },
   "repository": {
     "type": "git",
