@@ -18,9 +18,6 @@ COPY . .
 # Build the NestJS application
 RUN npm run build
 
-# Expose the port the app runs on
-ENV APP_PORT 3000
-ENV NODE_ENV development
 
 # Expose the port the app runs on
 EXPOSE ${APP_PORT}
