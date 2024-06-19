@@ -1,29 +1,29 @@
+# Use an official Node.js runtime as a parent image
 FROM node:18.16.1-alpine
-# Use an official Node.js runtime as a parent image 
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json files to the container
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
 RUN npm i -g @samagra-x/stencil-cli typescript ts-node
 
-# Install dependencies
+# Install the dependencies
 RUN npm install
 
-# Copy the rest of the application code to the container
+# Copy the rest of the application code to the working directory
 COPY . .
 
 # Build the NestJS application
-
 RUN npm run build
 
-# Set environment variable (default value, can be overridden by .env)
-ENV PORT 3000
-ENV ENVIRONMENT DEVELOPMENT
+# Expose the port the app runs on
+ENV APP_PORT 3000
+ENV NODE_ENV development
 
 # Expose the port the app runs on
-EXPOSE ${PORT}
+EXPOSE ${APP_PORT}
 
-CMD ["sh", "-c", "if [ \"$ENVIRONMENT\" = \"PRODUCTION\" ]; then npm run start:prod; else npm run start:dev; fi"]
+
+CMD ["sh", "-c", "if [ \"$NODE_ENV\" = \"production\" ]; then npm run start:prod; else npm run start:dev; fi"]

@@ -1,26 +1,30 @@
-export const dockerfileContent = `FROM node:18.16.1-alpine
-# Use an official Node.js runtime as a parent image 
+export const dockerfileContent = `# Use an official Node.js runtime as a parent image
+FROM node:18.16.1-alpine
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Copy the package.json and package-lock.json files to the container
+# Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
-RUN npm i -g @nestjs/cli @samagra-x/stencil-cli typescript ts-node
+RUN npm i -g @samagra-x/stencil-cli typescript ts-node
 
-# Install dependencies
+# Install the dependencies
 RUN npm install
 
-# Copy the rest of the application code to the container
+# Copy the rest of the application code to the working directory
 COPY . .
 
 # Build the NestJS application
-RUN npx prisma generate
 RUN npm run build
 
 # Expose the port the app runs on
-EXPOSE 3000
+ENV APP_PORT 3000
+ENV NODE_ENV development
 
-CMD ["npm", "run", "start:dev"]
+# Expose the port the app runs on
+EXPOSE \${APP_PORT}
+
+
+CMD ["sh", "-c", "if [ \"$NODE_ENV\" = \"production\" ]; then npm run start:prod; else npm run start:dev; fi"]
 `;
