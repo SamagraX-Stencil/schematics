@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "MonitorModule",
+  "$id": "Monitoring",
   "title": "Custom Monitoring Module Insertion",
   "type": "object",
   "properties": {
@@ -10,3 +10,4 @@
     }
   }
 }
+

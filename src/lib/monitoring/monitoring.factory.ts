@@ -11,7 +11,7 @@ import {
   ModuleDeclarator,
 } from '../../utils/module.declarator';
 import { ModuleFinder } from '../../utils/module.finder';
-import { MonitorOptions } from './monitorModule.schema';
+import { MonitorOptions } from './monitoring.schema';
 
 export function main(options: MonitorOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {

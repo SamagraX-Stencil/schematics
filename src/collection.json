@@ -20,7 +20,7 @@
     },
     "controller": {
       "factory": "./lib/controller/controller.factory#main",
-      "description": "Creathttps://github.com/nestjs/schematicse a Nest controller.",
+      "description": "Create a Nest controller.",
       "schema": "./lib/controller/schema.json",
       "aliases": [
         "co"
@@ -203,30 +203,20 @@
       "description": "Generate files in a .devcontainer file",
       "schema": "./lib/devcontainer/schema.json"
     },
-    "monitorModule": {
-      "factory": "./lib/monitorModule/monitorModule.factory#main",
-      "description": "Generate monitorModule files",
-      "schema": "./lib/monitorModule/schema.json"
-    },
-    "monitor": {
-      "factory": "./lib/monitor/monitor.factory#main",
-      "description": "Generate monitor folder",
-      "schema": "./lib/monitor/schema.json"
+    "monitoring": {
+      "factory": "./lib/monitoring/monitoring.factory#main",
+      "description": "Generate monitoring files",
+      "schema": "./lib/monitoring/schema.json"
     },
     "service-file-upload": {
       "factory": "./lib/service-file-upload/service-file-upload.factory#main",
-      "description": "Generate monitor folder",
+      "description": "Generate service-file-upload folder",
       "schema": "./lib/service-file-upload/schema.json"
     },
     "service-temporal": {
       "factory": "./lib/service-temporal/service-temporal.factory#main",
       "description": "Add imports to app.module.ts and generate the temporal folder",
       "schema": "./lib/service-temporal/schema.json"
-    },
-    "logging": {
-      "factory": "./lib/logging/logging.factory#main",
-      "description": "generate the logging folder in services",
-      "schema": "./lib/logging/schema.json"
     }
   }
 }
