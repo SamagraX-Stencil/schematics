@@ -20,7 +20,7 @@
     },
     "controller": {
       "factory": "./lib/controller/controller.factory#main",
-      "description": "Creathttps://github.com/nestjs/schematicse a Nest controller.",
+      "description": "Create a Nest controller.",
       "schema": "./lib/controller/schema.json",
       "aliases": [
         "co"

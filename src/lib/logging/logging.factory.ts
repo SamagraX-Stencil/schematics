@@ -12,10 +12,10 @@ import {
 } from '@angular-devkit/schematics';
 
 import { LoggingOptions } from './logging.schema';
-import { elasticsearch } from './Dockerfile content/elasticsearch';
-import { kibana } from './Dockerfile content/kibana';
-import { logstash } from './Dockerfile content/logstash';
-import { setup } from './Dockerfile content/setup';
+// import { elasticsearch } from './Dockerfile content/elasticsearch';
+// import { kibana } from './Dockerfile content/kibana';
+// import { logstash } from './Dockerfile content/logstash';
+// import { setup } from './Dockerfile content/setup';
 import { content } from './env-content';
 
 export function main(options: LoggingOptions): Rule {
@@ -52,7 +52,7 @@ function generateElasticSearch(): Rule {
     const path = `./services/logging/elasticsearch`;
 
     const elasticPath = join(path as Path, 'Dockerfile');
-    tree.create(elasticPath, elasticsearch);
+    // tree.create(elasticPath, elasticsearch);
     return tree;
   };
 }
@@ -62,7 +62,7 @@ function generateKibana(): Rule {
     const path = `./services/logging/kibana`;
 
     const kibanaPath = join(path as Path, 'Dockerfile');
-    tree.create(kibanaPath, kibana);
+    // tree.create(kibanaPath, kibana);
     return tree;
   };
 }
@@ -72,7 +72,7 @@ function generateLogstash(): Rule {
     const path = `./services/logging/logstash`;
 
     const logstashPath = join(path as Path, 'Dockerfile');
-    tree.create(logstashPath, logstash);
+    // tree.create(logstashPath, logstash);
     return tree;
   };
 }
@@ -82,7 +82,7 @@ function generateSetup(): Rule {
     const path = `./services/logging/setup`;
 
     const setupPath = join(path as Path, 'Dockerfile');
-    tree.create(setupPath, setup);
+    // tree.create(setupPath, setup);
     return tree;
   };
 }

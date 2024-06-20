@@ -25,8 +25,8 @@ export function main(options: TemporalServiceOptions): Rule {
       chain([
         addImportToModule(options),
         addProviderToModule(options),
-        generateTemporalFiles(options, context),
-        createEnvFile(options),
+        // generateTemporalFiles(options, context),
+        // createEnvFile(options),
         addActivitiesImport(options),
       ]),
     )(tree, context);
@@ -91,20 +91,20 @@ function addProviderToModule(options: TemporalServiceOptions): Rule {
   };
 }
 
-function generateTemporalFiles(
-  options: TemporalServiceOptions,
-  context: SchematicContext,
-): Rule {
-  return (tree: Tree) => {
-    const path = '.';
-    const sourceTemplate = apply(
-      url(join('./files' as Path, options.language)),
-      [move(path)],
-    );
+// function generateTemporalFiles(
+//   options: TemporalServiceOptions,
+//   context: SchematicContext,
+// ): Rule {
+//   return (tree: Tree) => {
+//     const path = '.';
+//     const sourceTemplate = apply(
+//       url(join('./files' as Path, options.language)),
+//       [move(path)],
+//     );
 
-    return chain([mergeWith(sourceTemplate)])(tree, context);
-  };
-}
+//     return chain([mergeWith(sourceTemplate)])(tree, context);
+//   };
+// }
 
 function findImportsEndpoint(contentLines: string[]): number {
   const reversedContent = Array.from(contentLines).reverse();
@@ -135,12 +135,12 @@ function addActivitiesImport(options: TemporalServiceOptions): Rule {
   };
 }
 
-function createEnvFile(options: TemporalServiceOptions): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-    const envFilePath = `./services/temporal/.env`;
+// function createEnvFile(options: TemporalServiceOptions): Rule {
+//   return (tree: Tree, context: SchematicContext) => {
+//     const envFilePath = `./services/temporal/.env`;
 
-    tree.create(envFilePath, content);
+//     tree.create(envFilePath, content);
 
-    return tree;
-  };
-}
+//     return tree;
+//   };
+// }

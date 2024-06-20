@@ -13,7 +13,7 @@ import { MonitorOptions } from './monitor.schema';
 
 export function main(options: MonitorOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    return generateMonitorFiles(options, context);
+    // return generateMonitorFiles(options, context);
   };
 }
 
