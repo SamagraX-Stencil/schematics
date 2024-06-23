@@ -194,9 +194,9 @@
       ]
     },
     "prisma": {
-      "factory": "./lib/devcontainer/devcontainer.factory#main",
-      "description": "Generate files in a .devcontainer file",
-      "schema": "./lib/devcontainer/schema.json"
+      "factory": "./lib/prisma/prisma.factory#main",
+      "description": "Add custom prisma models to the schema.prisma file",
+      "schema": "./lib/prisma/schema.json"
     },
     "devcontainer": {
       "factory": "./lib/devcontainer/devcontainer.factory#main",
