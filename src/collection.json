@@ -194,9 +194,9 @@
       ]
     },
     "prisma": {
-      "factory": "./lib/prisma/prisma.factory#main",
-      "description": "Add custom prisma models to the schema.prisma file",
-      "schema": "./lib/prisma/schema.json"
+      "factory": "./lib/devcontainer/devcontainer.factory#main",
+      "description": "Generate files in a .devcontainer file",
+      "schema": "./lib/devcontainer/schema.json"
     },
     "devcontainer": {
       "factory": "./lib/devcontainer/devcontainer.factory#main",
@@ -217,6 +217,31 @@
       "factory": "./lib/service-temporal/service-temporal.factory#main",
       "description": "Add imports to app.module.ts and generate the temporal folder",
       "schema": "./lib/service-temporal/schema.json"
+    },
+    "logging": {
+      "factory": "./lib/docker/logging/logging.factory#main",
+      "description": "Add logging docker service",
+      "schema": "./lib/docker/logging/schema.json"
+    },
+    "monitoringService": {
+      "factory": "./lib/docker/monitoringService/monitoringService.factory#main",
+      "description": "Add monitoring docker service",
+      "schema": "./lib/docker/monitoringService/schema.json"
+    },
+    "temporal": {
+      "factory": "./lib/docker/temporal/temporal.factory#main",
+      "description": "Add temporal docker service",
+      "schema": "./lib/docker/temporal/schema.json"
+    },
+    "postgres": {
+      "factory": "./lib/docker/postgres/postgres.factory#main",
+      "description": "Add postgres service to docker-compose.yml",
+      "schema": "./lib/docker/postgres/schema.json"
+    },
+    "hasura": {
+      "factory": "./lib/docker/hasura/hasura.factory#main",
+      "description": "Add hasura service to docker-compose.yml",
+      "schema": "./lib/docker/hasura/schema.json"
     }
   }
 }
