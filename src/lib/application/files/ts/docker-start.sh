@@ -8,7 +8,7 @@ fi
 cp env-example .env
 docker compose up -d
 
-LOGGING_DIR="./services/logging"
+LOGGING_DIR="./docker/logging"
 
 if [ -d "$LOGGING_DIR" ]; then
 
@@ -20,7 +20,7 @@ if [ -d "$LOGGING_DIR" ]; then
 
 fi
 
-MONITOR_DIR="./services/monitor"
+MONITOR_DIR="./docker/monitor"
 
 if [ -d "$MONITOR_DIR" ]; then
   cd "$MONITOR_DIR"
@@ -31,7 +31,7 @@ if [ -d "$MONITOR_DIR" ]; then
 
 fi
 
-TEMPORAL_DIR="./services/temporal"
+TEMPORAL_DIR="./docker/temporal"
 
 if [ -d "$TEMPORAL_DIR" ]; then
 

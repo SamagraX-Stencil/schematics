@@ -47,14 +47,7 @@ function generateBasicFiles(
   context: SchematicContext,
 ): Rule {
   return (tree: Tree) => {
-    const path = normalize('docker/hasura');
-    const srcPath: Source = url(join(normalize('../files' as Path), options.language, 'hasura'));
-    const sourceTemplate = apply(
-      srcPath,
-      [move(path)],
-    );
     return chain([
-      mergeWith(sourceTemplate),
       addHasuraService(),
     ])(tree, context);
   };

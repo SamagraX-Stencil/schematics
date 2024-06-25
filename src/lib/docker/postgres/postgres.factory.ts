@@ -49,14 +49,7 @@ function generateBasicFiles(
   context: SchematicContext,
 ): Rule {
   return (tree: Tree) => {
-    const path = normalize('docker/postgres');
-    const srcPath: Source = url(join(normalize('../files' as Path), options.language, 'postgres'));
-    const sourceTemplate = apply(
-      srcPath,
-      [move(path)],
-    );
     return chain([
-      mergeWith(sourceTemplate),
       addPostgresService(),
     ])(tree, context);
   };
@@ -67,7 +60,6 @@ function addPostgresService(): Rule {
     const composeFilePath = normalize('docker-compose.yml');
     const envFilePath = normalize('.env');
 
-    // Create or update the docker-compose.yml
     if (tree.exists(composeFilePath)) {
       const composeFile = tree.read(composeFilePath)?.toString('utf-8');
       if (!composeFile?.includes('services:') || !composeFile.includes('postgres:')) {
