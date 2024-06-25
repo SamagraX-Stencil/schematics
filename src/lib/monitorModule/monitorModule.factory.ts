@@ -12,6 +12,8 @@ import {
 } from '../../utils/module.declarator';
 import { ModuleFinder } from '../../utils/module.finder';
 import { MonitorOptions } from './monitorModule.schema';
+import { addPackageJsonDependency, getPackageJsonDependency, NodeDependencyType } from '../../utils/dependencies.utils';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
 export function main(options: MonitorOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -22,7 +24,7 @@ export function main(options: MonitorOptions): Rule {
 }
 
 function addMonitorToModule(options: MonitorOptions): Rule {
-  return (tree: Tree) => {
+  return (tree: Tree, context: SchematicContext) => {
     if (!options.path) {
       options.path = '/src';
     }
@@ -51,6 +53,19 @@ function addMonitorToModule(options: MonitorOptions): Rule {
     } as DeclarationOptions);
 
     tree.overwrite(options.module, content);
+
+    const nodeDependencyRef = getPackageJsonDependency(
+      tree,
+      '@samagra-x/stencil',
+    );
+    if (!nodeDependencyRef) {
+      addPackageJsonDependency(tree, {
+        type: NodeDependencyType.Default,
+        name: '@samagra-x/stencil',
+        version: '^0.0.6',
+      });
+      context.addTask(new NodePackageInstallTask());
+    }
 
     return tree;
   };
