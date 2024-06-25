@@ -12,6 +12,8 @@ import {
 } from '../../utils/module.declarator';
 import { ModuleFinder } from '../../utils/module.finder';
 import { ServiceOptions } from './service-user.schema';
+import { addPackageJsonDependency, getPackageJsonDependency, NodeDependencyType } from '../../utils/dependencies.utils';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
 export function main(options: ServiceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -20,7 +22,7 @@ export function main(options: ServiceOptions): Rule {
 }
 
 function addImportToModule(options: ServiceOptions): Rule {
-  return (tree: Tree) => {
+  return (tree: Tree, context:SchematicContext) => {
     if (!options.path) {
       options.path = '/src';
     }
@@ -47,6 +49,19 @@ function addImportToModule(options: ServiceOptions): Rule {
     } as DeclarationOptions);
 
     tree.overwrite(options.module, content);
+
+    const nodeDependencyRef = getPackageJsonDependency(
+      tree,
+      '@techsavvyash/user-service',
+    );
+    if (!nodeDependencyRef) {
+      addPackageJsonDependency(tree, {
+        type: NodeDependencyType.Default,
+        name: '@techsavvyash/user-service',
+        version: '*',
+      });
+      context.addTask(new NodePackageInstallTask());
+    }
 
     return tree;
   };

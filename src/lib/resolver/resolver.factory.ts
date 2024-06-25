@@ -25,6 +25,8 @@ import { Location, NameParser } from '../../utils/name.parser';
 import { mergeSourceRoot } from '../../utils/source-root.helpers';
 import { ProviderOptions } from '../provider/provider.schema';
 import { ResolverOptions } from './resolver.schema';
+import { addPackageJsonDependency, getPackageJsonDependency, NodeDependencyType } from '../../utils/dependencies.utils';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
 export function main(options: ResolverOptions): Rule {
   options = transform(options);
@@ -77,10 +79,11 @@ function generate(options: ResolverOptions): Source {
       }),
       move(options.path),
     ])(context);
+
 }
 
 function addDeclarationToModule(options: ProviderOptions): Rule {
-  return (tree: Tree) => {
+  return (tree: Tree, context:SchematicContext) => {
     if (options.skipImport !== undefined && options.skipImport) {
       return tree;
     }
@@ -97,6 +100,20 @@ function addDeclarationToModule(options: ProviderOptions): Rule {
       options.module,
       declarator.declare(content, options as DeclarationOptions),
     );
+
+    const DependencyRef = getPackageJsonDependency(
+      tree,
+      '@nestjs/graphql',
+    );
+    if (!DependencyRef) {
+      addPackageJsonDependency(tree, {
+        type: NodeDependencyType.Default,
+        name: '@nestjs/graphql',
+        version: '*',
+      });
+      context.addTask(new NodePackageInstallTask());
+    }
+
     return tree;
   };
 }
