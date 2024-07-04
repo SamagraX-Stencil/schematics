@@ -39,12 +39,12 @@ function addImportToModule(options: ServiceOptions): Rule {
     const declarator: ModuleDeclarator = new ModuleDeclarator();
 
     // Modify the imports array to include UserModule
-    options.path = '@techsavvyash/user-service';
+    options.path = '@samagra-x/user-service';
     content = declarator.declare(content, {
       name: 'user',
       metadata: 'imports',
       className: 'user.UserModule',
-      path: `@techsavvyash/user-service` as Path,
+      path: `@samagra-x/user-service` as Path,
       isPackage: true,
     } as DeclarationOptions);
 
@@ -52,12 +52,12 @@ function addImportToModule(options: ServiceOptions): Rule {
 
     const nodeDependencyRef = getPackageJsonDependency(
       tree,
-      '@techsavvyash/user-service',
+      '@samagra-x/user-service',
     );
     if (!nodeDependencyRef) {
       addPackageJsonDependency(tree, {
         type: NodeDependencyType.Default,
-        name: '@techsavvyash/user-service',
+        name: '@samagra-x/user-service',
         version: '*',
       });
       context.addTask(new NodePackageInstallTask());
