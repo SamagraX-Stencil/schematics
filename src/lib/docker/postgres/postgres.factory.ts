@@ -11,7 +11,7 @@ import {
   mergeWith,
   Source,
 } from '@angular-devkit/schematics';
-
+import { updateStartScript } from '../utils/start-utils';
 import { PostgresOptions } from './postgres.schema';
 
 const postgresConfig = `
@@ -98,7 +98,7 @@ function addPostgresService(options: PostgresOptions): Rule {
       tree.create(envFilePath, postgresEnvContent.trim());
       context.logger.info('.env file created with PostgreSQL environment variables');
     }
-
+    updateStartScript(tree, context, 'postgres', options.path as Path);
     return tree;
   };
 }

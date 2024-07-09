@@ -11,7 +11,7 @@ import {
   mergeWith,
   Source,
 } from '@angular-devkit/schematics';
-
+import { updateStartScript } from '../utils/start-utils';
 import { HasuraOptions } from './hasura.schema';
 
 const hasuraConfig = `
@@ -96,6 +96,7 @@ function addHasuraService(options: HasuraOptions): Rule {
       tree.create(envFilePath, hasuraEnvContent.trim());
       context.logger.info('.env file created with Hasura environment variables');
     }
+    updateStartScript(tree, context, 'hasura', options.path as Path);
 
     return tree;
   };
