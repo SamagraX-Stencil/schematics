@@ -13,6 +13,8 @@ import {
 } from '@angular-devkit/schematics';
 import { updateStartScript } from '../utils/start-utils';
 import { HasuraOptions } from './hasura.schema';
+import { addService } from '../utils/addService-utils';
+import { addEnvFile } from '../utils/addEnv-utils';
 
 const hasuraConfig = `
   hasura:
@@ -55,47 +57,15 @@ function generateBasicFiles(
 
 function addHasuraService(options: HasuraOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
+    options.path = options.path === "undefined" ? "" : options.path;
+    
     const composeFilePath = join(options.path as Path,normalize('docker-compose.yml'));
     const envFilePath = join(options.path as Path,normalize('.env'));
 
-    if (tree.exists(composeFilePath)) {
-      const composeFile = tree.read(composeFilePath)?.toString('utf-8');
-      if (!composeFile?.includes('services:') || !composeFile.includes('hasura:')) {
-        let updatedComposeFile = composeFile || '';
-        if (!composeFile?.includes('services:')) {
-          updatedComposeFile += `services:\n`;
-        }
+    addService(tree, context, 'hasura',hasuraConfig,composeFilePath );
 
-        updatedComposeFile += `${hasuraConfig}`;
-        tree.overwrite(composeFilePath, updatedComposeFile);
-        context.logger.info('Hasura service added to docker-compose.yml');
-      } else {
-        context.logger.info('Hasura service already exists in docker-compose.yml');
-      }
-    } else {
-      const newComposeFile = `services:\n${hasuraConfig}`;
-      tree.create(composeFilePath, newComposeFile);
-      context.logger.info('docker-compose.yml created with Hasura service');
-    }
+    addEnvFile(tree, context,'Hasura', envFilePath, hasuraEnvContent);
 
-    if (tree.exists(envFilePath)) {
-      let currentEnvContent = tree.read(envFilePath)?.toString('utf-8').trim() || '';
-      const newEnvVars = hasuraEnvContent.trim().split('\n').filter(line => {
-        const [key] = line.split('=');
-        return !currentEnvContent.includes(`${key}=`);
-      }).join('\n');
-
-      if (newEnvVars) {
-        currentEnvContent += `\n${newEnvVars}`;
-        tree.overwrite(envFilePath, currentEnvContent.trim());
-        context.logger.info('Hasura environment variables added to .env file');
-      } else {
-        context.logger.info('Hasura environment variables already exist in .env file');
-      }
-    } else {
-      tree.create(envFilePath, hasuraEnvContent.trim());
-      context.logger.info('.env file created with Hasura environment variables');
-    }
     updateStartScript(tree, context, 'hasura', options.path as Path);
 
     return tree;

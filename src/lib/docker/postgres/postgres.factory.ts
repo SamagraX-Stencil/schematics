@@ -13,7 +13,8 @@ import {
 } from '@angular-devkit/schematics';
 import { updateStartScript } from '../utils/start-utils';
 import { PostgresOptions } from './postgres.schema';
-
+import { addEnvFile } from '../utils/addEnv-utils';
+import { addService } from '../utils/addService-utils';
 const postgresConfig = `
   postgres:
     image: postgres:13
@@ -57,48 +58,17 @@ function generateBasicFiles(
 
 function addPostgresService(options: PostgresOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
+    options.path = options.path === "undefined" ? "" : options.path;
+    
     const composeFilePath = join(options.path as Path,normalize('docker-compose.yml'));
     const envFilePath = join(options.path as Path,normalize('.env'));
 
-    if (tree.exists(composeFilePath)) {
-      const composeFile = tree.read(composeFilePath)?.toString('utf-8');
-      if (!composeFile?.includes('services:') || !composeFile.includes('postgres:')) {
-        let updatedComposeFile = composeFile || '';
-        if (!composeFile?.includes('services:')) {
-          updatedComposeFile += `services:\n`;
-        }
+    addService(tree, context, 'postgres',postgresConfig,composeFilePath );
 
-        updatedComposeFile += `${postgresConfig}`;
-        tree.overwrite(composeFilePath, updatedComposeFile);
-        context.logger.info('Postgres service added to docker-compose.yml');
-      } else {
-        context.logger.info('Postgres service already exists in docker-compose.yml');
-      }
-    } else {
-      const newComposeFile = `services:\n${postgresConfig}`;
-      tree.create(composeFilePath, newComposeFile);
-      context.logger.info('docker-compose.yml created with Postgres service');
-    }
+    addEnvFile(tree, context,'Postgres', envFilePath, postgresEnvContent);
 
-    if (tree.exists(envFilePath)) {
-      let currentEnvContent = tree.read(envFilePath)?.toString('utf-8').trim() || '';
-      const newEnvVars = postgresEnvContent.trim().split('\n').filter(line => {
-        const [key] = line.split('=');
-        return !currentEnvContent.includes(`${key}=`);
-      }).join('\n');
-
-      if (newEnvVars) {
-        currentEnvContent += `\n${newEnvVars}`;
-        tree.overwrite(envFilePath, currentEnvContent.trim());
-        context.logger.info('Postgres environment variables added to .env file');
-      } else {
-        context.logger.info('Postgres environment variables already exist in .env file');
-      }
-    } else {
-      tree.create(envFilePath, postgresEnvContent.trim());
-      context.logger.info('.env file created with PostgreSQL environment variables');
-    }
     updateStartScript(tree, context, 'postgres', options.path as Path);
+
     return tree;
   };
 }
