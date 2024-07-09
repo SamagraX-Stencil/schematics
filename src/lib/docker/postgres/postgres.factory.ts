@@ -50,15 +50,15 @@ function generateBasicFiles(
 ): Rule {
   return (tree: Tree) => {
     return chain([
-      addPostgresService(),
+      addPostgresService(options),
     ])(tree, context);
   };
 }
 
-function addPostgresService(): Rule {
+function addPostgresService(options: PostgresOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const composeFilePath = normalize('docker-compose.yml');
-    const envFilePath = normalize('.env');
+    const composeFilePath = join(options.path as Path,normalize('docker-compose.yml'));
+    const envFilePath = join(options.path as Path,normalize('.env'));
 
     if (tree.exists(composeFilePath)) {
       const composeFile = tree.read(composeFilePath)?.toString('utf-8');

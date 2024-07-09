@@ -10,7 +10,12 @@
     },
     "language": {
       "type": "string",
-      "description": "The source root path."
+      "description": "Desired language (ts/js)."
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create Hasura service."
     }
   }
 }

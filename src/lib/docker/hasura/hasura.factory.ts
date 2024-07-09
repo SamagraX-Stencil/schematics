@@ -48,15 +48,15 @@ function generateBasicFiles(
 ): Rule {
   return (tree: Tree) => {
     return chain([
-      addHasuraService(),
+      addHasuraService(options),
     ])(tree, context);
   };
 }
 
-function addHasuraService(): Rule {
+function addHasuraService(options: HasuraOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const composeFilePath = normalize('docker-compose.yml');
-    const envFilePath = normalize('.env');
+    const composeFilePath = join(options.path as Path,normalize('docker-compose.yml'));
+    const envFilePath = join(options.path as Path,normalize('.env'));
 
     if (tree.exists(composeFilePath)) {
       const composeFile = tree.read(composeFilePath)?.toString('utf-8');
