@@ -18,20 +18,22 @@ import { addEnvFile } from '../utils/addEnv-utils';
 
 const hasuraConfig = `
   hasura:
-    image: hasura/graphql-engine:v2.0.0
+    image: hasura/graphql-engine:latest
     ports:
-      - "8080:8080"
+      - '8080:8080'
+    depends_on:
+      - 'postgres'
+    restart: always
     environment:
       HASURA_GRAPHQL_DATABASE_URL: \${HASURA_GRAPHQL_DATABASE_URL}
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+      HASURA_GRAPHQL_ENABLE_CONSOLE: \${HASURA_GRAPHQL_ENABLE_CONSOLE}
       HASURA_GRAPHQL_ADMIN_SECRET: \${HASURA_GRAPHQL_ADMIN_SECRET}
-    depends_on:
-      - postgres
 `;
 
 const hasuraEnvContent = `
-HASURA_GRAPHQL_DATABASE_URL=your_postgres_database_url
-HASURA_GRAPHQL_ADMIN_SECRET=your_hasura_admin_secret
+HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres_db
+HASURA_GRAPHQL_ENABLE_CONSOLE=true
+HASURA_GRAPHQL_ADMIN_SECRET=myadminsecretkey
 `;
 
 export function main(options: HasuraOptions): Rule {

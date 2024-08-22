@@ -17,22 +17,18 @@ import { addEnvFile } from '../utils/addEnv-utils';
 import { addService } from '../utils/addService-utils';
 const postgresConfig = `
   postgres:
-    image: postgres:13
-    restart: always
+    image: postgres:latest
     environment:
       POSTGRES_USER: \${POSTGRES_USER}
       POSTGRES_PASSWORD: \${POSTGRES_PASSWORD}
       POSTGRES_DB: \${POSTGRES_DB}
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    restart: always
 `;
 
 const postgresEnvContent = `
-POSTGRES_USER=your_postgres_user
-POSTGRES_PASSWORD=your_postgres_password
-POSTGRES_DB=your_postgres_db
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=postgres_db
 `;
 
 export function main(options: PostgresOptions): Rule {
