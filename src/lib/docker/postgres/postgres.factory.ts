@@ -23,6 +23,11 @@ const postgresConfig = `
       POSTGRES_PASSWORD: \${POSTGRES_PASSWORD}
       POSTGRES_DB: \${POSTGRES_DB}
     restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 `;
 
 const postgresEnvContent = `

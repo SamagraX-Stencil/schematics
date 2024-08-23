@@ -242,6 +242,16 @@
       "factory": "./lib/docker/hasura/hasura.factory#main",
       "description": "Add hasura service to docker-compose.yml",
       "schema": "./lib/docker/hasura/schema.json"
+    },
+    "minio": {
+      "factory": "./lib/docker/minio/minio.factory#main",
+      "description": "Add minio service to docker-compose.yml",
+      "schema": "./lib/docker/minio/schema.json"
+    },
+    "fusionauth": {
+      "factory": "./lib/docker/fusionauth/fusionauth.factory#main",
+      "description": "Add fusionauth service to docker-compose.yml",
+      "schema": "./lib/docker/fusionauth/schema.json"
     }
   }
 }
