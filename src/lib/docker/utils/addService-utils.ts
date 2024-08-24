@@ -1,24 +1,40 @@
 import { Tree, SchematicContext } from '@angular-devkit/schematics';
+import * as yaml from 'yaml';
 
-export function addService(tree: Tree, context: SchematicContext,serviceName: string, serviceConfig: string,composeFilePath:string): void {
-    if (tree.exists(composeFilePath)) {
-        const composeFile = tree.read(composeFilePath)?.toString('utf-8');
-        if (!composeFile?.includes('services:') || !composeFile.includes(`${serviceName}:`)) {
-          let updatedComposeFile = composeFile || '';
-          if (!composeFile?.includes('services:')) {
-            updatedComposeFile += `services:\n`;
-          }
-  
-          updatedComposeFile += `${serviceConfig}`;
-          tree.overwrite(composeFilePath, updatedComposeFile);
-          context.logger.info(`${serviceName} service added to docker-compose.yml`);
-        } else {
-          context.logger.info(`${serviceName} service already exists in docker-compose.yml`);
-        }
-      } else {
-        const newComposeFile = `services:\n${serviceConfig}`;
-        tree.create(composeFilePath, newComposeFile);
-        context.logger.info(`docker-compose.yml created with ${serviceName} service`);
-      }
-  
+export function addService(
+  tree: Tree,
+  context: SchematicContext,
+  sectionName: string,
+  entryName: string,
+  entryConfig: any,
+  composeFilePath: string
+): void {
+  if (tree.exists(composeFilePath)) {
+    const composeFileContent = tree.read(composeFilePath)?.toString('utf-8');
+    let composeFile = yaml.parse(composeFileContent || '');
+
+    if (!composeFile[sectionName]) {
+      composeFile[sectionName] = {};
     }
+
+    if (!(entryName in composeFile[sectionName])) {
+      composeFile[sectionName][entryName] = typeof entryConfig === 'string' ? yaml.parse(entryConfig) : entryConfig;
+
+      const updatedComposeFile = yaml.stringify(composeFile, { indent: 2 });
+      tree.overwrite(composeFilePath, updatedComposeFile);
+      context.logger.info(`${entryName} added to ${sectionName} in docker-compose.yml`);
+    } else {
+      context.logger.info(`${entryName} already exists in ${sectionName} in docker-compose.yml`);
+    }
+  } else {
+    const newComposeFile = {
+      [sectionName]: {
+        [entryName]: typeof entryConfig === 'string' ? yaml.parse(entryConfig) : entryConfig
+      }
+    };
+
+    const newComposeFileContent = yaml.stringify(newComposeFile, { indent: 2 });
+    tree.create(composeFilePath, newComposeFileContent);
+    context.logger.info(`docker-compose.yml created with ${entryName} in ${sectionName}`);
+  }
+}

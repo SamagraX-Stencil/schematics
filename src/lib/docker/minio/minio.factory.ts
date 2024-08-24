@@ -16,8 +16,7 @@ import { MinioOptions } from './minio.schema';
 import { addService } from '../utils/addService-utils';
 import { addEnvFile } from '../utils/addEnv-utils';
 
-const minioConfig = `
-  minio:
+const minioServiceConfig = `
     image: minio/minio:latest
     container_name: minio
     ports:
@@ -27,7 +26,11 @@ const minioConfig = `
       MINIO_ROOT_USER: \${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: \${MINIO_ROOT_PASSWORD}
     command: server /data --console-address ":9001"
+    volumes:
+    - minio_data:/data
 `;
+
+const minioVolumeConfig = "minio_data";
 
 const minioEnvContent = `
 MINIO_ROOT_USER=minioadmin
@@ -62,7 +65,8 @@ function addMinioService(options: MinioOptions): Rule {
     const composeFilePath = join(options.path as Path,normalize('docker-compose.yml'));
     const envFilePath = join(options.path as Path,normalize('.env'));
 
-    addService(tree, context, 'minio',minioConfig,composeFilePath );
+    addService(tree, context,'services', 'minio',minioServiceConfig,composeFilePath );
+    addService(tree, context,'volumes', minioVolumeConfig,{},composeFilePath );
 
     addEnvFile(tree, context,'Minio', envFilePath, minioEnvContent);
 

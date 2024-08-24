@@ -27,7 +27,7 @@ export function updateStartScript(tree: Tree, context: SchematicContext, service
       const newServiceScript = startScriptTemplate(serviceName, resolvedPath,serviceDir);
 
       if (startScriptContent.includes(`${serviceName.toUpperCase()}_DIR="${serviceDir}"`)) {
-        context.logger.info(`docker-start.sh script already includes Postgres service with the same path`);
+        context.logger.info(`docker-start.sh script already includes ${serviceName} service with the same path`);
         return;
       }
       

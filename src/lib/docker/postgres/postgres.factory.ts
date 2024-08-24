@@ -15,8 +15,8 @@ import { updateStartScript } from '../utils/start-utils';
 import { PostgresOptions } from './postgres.schema';
 import { addEnvFile } from '../utils/addEnv-utils';
 import { addService } from '../utils/addService-utils';
-const postgresConfig = `
-  postgres:
+
+const postgresServiceConfig = `
     image: postgres:latest
     environment:
       POSTGRES_USER: \${POSTGRES_USER}
@@ -28,7 +28,10 @@ const postgresConfig = `
       interval: 5s
       timeout: 5s
       retries: 5
+    volumes:
+    - postgres_data:/var/lib/postgresql/data
 `;
+const postgresVolumeConfig = "postgres_data";
 
 const postgresEnvContent = `
 POSTGRES_USER=postgres
@@ -64,7 +67,8 @@ function addPostgresService(options: PostgresOptions): Rule {
     const composeFilePath = join(options.path as Path,normalize('docker-compose.yml'));
     const envFilePath = join(options.path as Path,normalize('.env'));
 
-    addService(tree, context, 'postgres',postgresConfig,composeFilePath );
+    addService(tree, context,'services', 'postgres',postgresServiceConfig,composeFilePath );
+    addService(tree, context,'volumes', postgresVolumeConfig,{},composeFilePath );
 
     addEnvFile(tree, context,'Postgres', envFilePath, postgresEnvContent);
 

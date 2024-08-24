@@ -16,8 +16,7 @@ import { HasuraOptions } from './hasura.schema';
 import { addService } from '../utils/addService-utils';
 import { addEnvFile } from '../utils/addEnv-utils';
 
-const hasuraConfig = `
-  hasura:
+const hasuraServiceConfig = `
     image: hasura/graphql-engine:latest
     ports:
       - '8080:8080'
@@ -28,7 +27,10 @@ const hasuraConfig = `
       HASURA_GRAPHQL_DATABASE_URL: \${HASURA_GRAPHQL_DATABASE_URL}
       HASURA_GRAPHQL_ENABLE_CONSOLE: \${HASURA_GRAPHQL_ENABLE_CONSOLE}
       HASURA_GRAPHQL_ADMIN_SECRET: \${HASURA_GRAPHQL_ADMIN_SECRET}
+    volumes:
+    - hasura_metadata:/hasura_metadata
 `;
+const hasuraVolumeConfig = "hasura_metadata";
 
 const hasuraEnvContent = `
 HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres_db
@@ -64,7 +66,8 @@ function addHasuraService(options: HasuraOptions): Rule {
     const composeFilePath = join(options.path as Path,normalize('docker-compose.yml'));
     const envFilePath = join(options.path as Path,normalize('.env'));
 
-    addService(tree, context, 'hasura',hasuraConfig,composeFilePath );
+    addService(tree, context, 'services', 'hasura', hasuraServiceConfig, composeFilePath);
+    addService(tree, context, 'volumes', hasuraVolumeConfig, {}, composeFilePath);
 
     addEnvFile(tree, context,'Hasura', envFilePath, hasuraEnvContent);
 

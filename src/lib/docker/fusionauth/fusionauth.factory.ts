@@ -16,8 +16,7 @@ import { FusionAuthOptions } from './fusionauth.schema';
 import { addService } from '../utils/addService-utils';
 import { addEnvFile } from '../utils/addEnv-utils';
 
-const fusionauthConfig = `
-  fusionauth:
+const fusionauthServiceConfig = `
     image: fusionauth/fusionauth-app:latest
     depends_on:
       postgres:
@@ -41,12 +40,8 @@ const fusionauthConfig = `
       - 9011:9011
     volumes:
       - fusionauth_config:/usr/local/fusionauth/config
-
-
-volumes:
-  db_data:
-  fusionauth_config:
 `;
+const fusionauthVolumeConfig = "fusionauth_config";
 
 const fusionauthEnvContent = `
 DATABASE_USERNAME=fusionauth
@@ -83,7 +78,8 @@ function addFusionAuthService(options: FusionAuthOptions): Rule {
     const composeFilePath = join(options.path as Path,normalize('docker-compose.yml'));
     const envFilePath = join(options.path as Path,normalize('.env'));
 
-    addService(tree, context, 'fusionauth',fusionauthConfig,composeFilePath );
+    addService(tree, context,'services', 'fusionauth',fusionauthServiceConfig,composeFilePath );
+    addService(tree, context,'volumes', fusionauthVolumeConfig,{},composeFilePath );
 
     addEnvFile(tree, context,'Fusionauth', envFilePath, fusionauthEnvContent);
 
