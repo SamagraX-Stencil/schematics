@@ -1,21 +1,6 @@
 import { Tree, SchematicContext } from '@angular-devkit/schematics';
 import { Path, join, normalize } from '@angular-devkit/core';
-
-const startScriptTemplate = (serviceName: string, respath: Path,serviceDir: string) => {
-
-  const changeDirCommands = serviceDir !== './' ? "cd " + respath.split('/').map(() => '../').join('') : '';
-  return `
-  
-${serviceName.toUpperCase()}_DIR="${serviceDir}"
-
-if [ -d $${serviceName.toUpperCase()}_DIR ]; then
-  cd $${serviceName.toUpperCase()}_DIR
-  docker compose up -d
-  ${changeDirCommands}
-fi
-
-`;
-};
+import { startScriptTemplate } from './start-constants';
 
 export function updateStartScript(tree: Tree, context: SchematicContext, serviceName: string, path: Path): void {
     const resolvedPath = path === "undefined" ? '' as Path : path;
