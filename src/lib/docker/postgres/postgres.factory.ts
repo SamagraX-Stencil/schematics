@@ -15,29 +15,7 @@ import { updateStartScript } from '../utils/start-utils';
 import { PostgresOptions } from './postgres.schema';
 import { addEnvFile } from '../utils/addEnv-utils';
 import { addService } from '../utils/addService-utils';
-
-const postgresServiceConfig = `
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: \${POSTGRES_USER}
-      POSTGRES_PASSWORD: \${POSTGRES_PASSWORD}
-      POSTGRES_DB: \${POSTGRES_DB}
-    restart: always
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    volumes:
-    - postgres_data:/var/lib/postgresql/data
-`;
-const postgresVolumeConfig = "postgres_data";
-
-const postgresEnvContent = `
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=postgres_db
-`;
+import { postgresServiceConfig, postgresVolumeConfig, postgresEnvContent } from './postgres-constants';
 
 export function main(options: PostgresOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {

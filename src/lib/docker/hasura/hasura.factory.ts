@@ -15,28 +15,7 @@ import { updateStartScript } from '../utils/start-utils';
 import { HasuraOptions } from './hasura.schema';
 import { addService } from '../utils/addService-utils';
 import { addEnvFile } from '../utils/addEnv-utils';
-
-const hasuraServiceConfig = `
-    image: hasura/graphql-engine:latest
-    ports:
-      - '8080:8080'
-    depends_on:
-      - 'postgres'
-    restart: always
-    environment:
-      HASURA_GRAPHQL_DATABASE_URL: \${HASURA_GRAPHQL_DATABASE_URL}
-      HASURA_GRAPHQL_ENABLE_CONSOLE: \${HASURA_GRAPHQL_ENABLE_CONSOLE}
-      HASURA_GRAPHQL_ADMIN_SECRET: \${HASURA_GRAPHQL_ADMIN_SECRET}
-    volumes:
-    - hasura_metadata:/hasura_metadata
-`;
-const hasuraVolumeConfig = "hasura_metadata";
-
-const hasuraEnvContent = `
-HASURA_GRAPHQL_DATABASE_URL=postgres://postgres:postgres@postgres:5432/postgres_db
-HASURA_GRAPHQL_ENABLE_CONSOLE=true
-HASURA_GRAPHQL_ADMIN_SECRET=myadminsecretkey
-`;
+import { hasuraServiceConfig, hasuraVolumeConfig, hasuraEnvContent } from './hasura-constants';
 
 export function main(options: HasuraOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {

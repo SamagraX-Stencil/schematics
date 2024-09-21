@@ -1,4 +1,5 @@
 import { Path, join, normalize } from '@angular-devkit/core';
+import { minioServiceConfig, minioVolumeConfig, minioEnvContent } from './minio-constants';
 import {
   apply,
   url,
@@ -15,27 +16,6 @@ import { updateStartScript } from '../utils/start-utils';
 import { MinioOptions } from './minio.schema';
 import { addService } from '../utils/addService-utils';
 import { addEnvFile } from '../utils/addEnv-utils';
-
-const minioServiceConfig = `
-    image: minio/minio:latest
-    container_name: minio
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      MINIO_ROOT_USER: \${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: \${MINIO_ROOT_PASSWORD}
-    command: server /data --console-address ":9001"
-    volumes:
-    - minio_data:/data
-`;
-
-const minioVolumeConfig = "minio_data";
-
-const minioEnvContent = `
-MINIO_ROOT_USER=minioadmin
-MINIO_ROOT_PASSWORD=minioadmin
-`;
 
 export function main(options: MinioOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
