@@ -20,7 +20,7 @@
     },
     "controller": {
       "factory": "./lib/controller/controller.factory#main",
-      "description": "Creathttps://github.com/nestjs/schematicse a Nest controller.",
+      "description": "Create a Nest controller.",
       "schema": "./lib/controller/schema.json",
       "aliases": [
         "co"
@@ -203,19 +203,14 @@
       "description": "Generate files in a .devcontainer file",
       "schema": "./lib/devcontainer/schema.json"
     },
-    "monitorModule": {
-      "factory": "./lib/monitorModule/monitorModule.factory#main",
-      "description": "Generate monitorModule files",
-      "schema": "./lib/monitorModule/schema.json"
-    },
-    "monitor": {
-      "factory": "./lib/monitor/monitor.factory#main",
-      "description": "Generate monitor folder",
-      "schema": "./lib/monitor/schema.json"
+    "monitoring": {
+      "factory": "./lib/monitoring/monitoring.factory#main",
+      "description": "Generate monitoring files",
+      "schema": "./lib/monitoring/schema.json"
     },
     "service-file-upload": {
       "factory": "./lib/service-file-upload/service-file-upload.factory#main",
-      "description": "Generate monitor folder",
+      "description": "Generate service-file-upload folder",
       "schema": "./lib/service-file-upload/schema.json"
     },
     "service-temporal": {
@@ -224,9 +219,39 @@
       "schema": "./lib/service-temporal/schema.json"
     },
     "logging": {
-      "factory": "./lib/logging/logging.factory#main",
-      "description": "generate the logging folder in services",
-      "schema": "./lib/logging/schema.json"
+      "factory": "./lib/docker/logging/logging.factory#main",
+      "description": "Add logging docker service",
+      "schema": "./lib/docker/logging/schema.json"
+    },
+    "monitoringService": {
+      "factory": "./lib/docker/monitoringService/monitoringService.factory#main",
+      "description": "Add monitoring docker service",
+      "schema": "./lib/docker/monitoringService/schema.json"
+    },
+    "temporal": {
+      "factory": "./lib/docker/temporal/temporal.factory#main",
+      "description": "Add temporal docker service",
+      "schema": "./lib/docker/temporal/schema.json"
+    },
+    "postgres": {
+      "factory": "./lib/docker/postgres/postgres.factory#main",
+      "description": "Add postgres service to docker-compose.yml",
+      "schema": "./lib/docker/postgres/schema.json"
+    },
+    "hasura": {
+      "factory": "./lib/docker/hasura/hasura.factory#main",
+      "description": "Add hasura service to docker-compose.yml",
+      "schema": "./lib/docker/hasura/schema.json"
+    },
+    "minio": {
+      "factory": "./lib/docker/minio/minio.factory#main",
+      "description": "Add minio service to docker-compose.yml",
+      "schema": "./lib/docker/minio/schema.json"
+    },
+    "fusionauth": {
+      "factory": "./lib/docker/fusionauth/fusionauth.factory#main",
+      "description": "Add fusionauth service to docker-compose.yml",
+      "schema": "./lib/docker/fusionauth/schema.json"
     }
   }
 }

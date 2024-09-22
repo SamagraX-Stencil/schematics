@@ -44,6 +44,7 @@
     "@angular-devkit/schematics": "16.2.1",
     "comment-json": "4.2.3",
     "jsonc-parser": "3.2.0",
+    "lint-staged": "^15.2.7",
     "pluralize": "8.0.0"
   },
   "devDependencies": {
