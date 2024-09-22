@@ -38,7 +38,6 @@ function addImportToModule(options: ServiceOptions): Rule {
     let content = tree.read(options.module).toString();
     const declarator: ModuleDeclarator = new ModuleDeclarator();
 
-    // Modify the imports array to include UserModule
     options.path = '@samagra-x/user-service';
     content = declarator.declare(content, {
       name: 'user',

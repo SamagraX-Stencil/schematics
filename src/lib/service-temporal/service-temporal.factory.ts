@@ -28,7 +28,6 @@ export function main(options: TemporalServiceOptions): Rule {
         addImportToModule(options),
         addProviderToModule(options),
         generateTemporalFiles(options, context),
-        createEnvFile(options),
         addActivitiesImport(options),
       ]),
     )(tree, context);
@@ -150,12 +149,3 @@ function addActivitiesImport(options: TemporalServiceOptions): Rule {
   };
 }
 
-function createEnvFile(options: TemporalServiceOptions): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-    const envFilePath = `./services/temporal/.env`;
-
-    tree.create(envFilePath, content);
-
-    return tree;
-  };
-}

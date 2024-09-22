@@ -16,6 +16,7 @@ describe('Module Import Declarator', () => {
       path: normalize('/src/foo/bar'),
       module: normalize('/src/foo/foo.module.ts'),
       symbol: 'BarModule',
+      isPackage: false
     };
     const declarator = new ModuleImportDeclarator();
     expect(declarator.declare(content, options)).toEqual(
@@ -39,6 +40,7 @@ describe('Module Import Declarator', () => {
       path: normalize('/src/foo'),
       module: normalize('/src/foo/foo.ts'),
       symbol: 'Foo',
+      isPackage: false
     };
     const declarator = new ModuleImportDeclarator();
     expect(declarator.declare(content, options)).toEqual(
@@ -68,6 +70,7 @@ describe('Module Import Declarator', () => {
       path: normalize('/src/foo/bar'),
       module: normalize('/src/foo/foo.module.ts'),
       symbol: 'BarModule',
+      isPackage: false
     };
     const declarator = new ModuleImportDeclarator();
     expect(declarator.declare(content, options)).toEqual(
@@ -103,6 +106,7 @@ describe('Module Import Declarator', () => {
       path: normalize('/src/foo/bar'),
       module: normalize('/src/foo/foo.module.ts'),
       symbol: 'BarModule',
+      isPackage: false
     };
     const declarator = new ModuleImportDeclarator();
     expect(declarator.declare(content, options)).toEqual(
@@ -118,5 +122,92 @@ describe('Module Import Declarator', () => {
         'console.error(" from ");\n' +
         'export class FooModule {}\n',
     );
+  }
+);
+it('should not break if same package already exists', () => {
+  const content: string =
+      "import { Module } from '@nestjs/common';\n" +
+      "import { TestModule } from '@samagra-x/stencil';\n" +
+      '\n' +
+      '@Module({})\n' +
+      'const x = " from ";\n' +
+      'console.error(" from ");\n' +
+      'export class FooModule {}\n';
+    const options: DeclarationOptions = {
+      metadata: 'imports',
+      name: 'module',
+      path: normalize('@samagra-x/stencil'),
+      module: normalize('/src/foo/foo.module.ts'),
+      symbol: 'Foo',
+      isPackage: false
+    };
+    const declarator = new ModuleImportDeclarator();
+    expect(declarator.declare(content, options)).toEqual(
+      "import { Module } from '@nestjs/common';\n" +
+      "import { TestModule, Foo } from '@samagra-x/stencil';\n" +
+        '\n' +
+        '@Module({})\n' +
+        'const x = " from ";\n' +
+        'console.error(" from ");\n' +
+        'export class FooModule {}\n',
+    );
   });
+
+  it('should not break for different quote chars', () => {
+    const content: string =
+        "import { Module } from '@nestjs/common';\n" +
+        "import { TestModule } from \"@samagra-x/stencil\" ;\n" +
+        '\n' +
+        '@Module({})\n' +
+        'const x = " from ";\n' +
+        'console.error(" from ");\n' +
+        'export class FooModule {}\n';
+      const options: DeclarationOptions = {
+        metadata: 'imports',
+        name: 'Foo',
+        path: normalize('@samagra-x/stencil'),
+        module: normalize('/src/foo/foo.module.ts'),
+        symbol: 'Foo',
+        isPackage: true
+      };
+      const declarator = new ModuleImportDeclarator();
+      expect(declarator.declare(content, options)).toEqual(
+        "import { Module } from '@nestjs/common';\n" +
+        "import { TestModule, Foo } from '@samagra-x/stencil';\n" +
+          '\n' +
+          '@Module({})\n' +
+          'const x = " from ";\n' +
+          'console.error(" from ");\n' +
+          'export class FooModule {}\n',
+      );
+    });
+
+    it('should not break if alias is present', () => {
+      const content: string =
+          "import { Module } from '@nestjs/common';\n" +
+          "import { TestModule } from '@samagra-x/stencil';\n" +
+          '\n' +
+          '@Module({})\n' +
+          'const x = " from ";\n' +
+          'console.error(" from ");\n' +
+          'export class FooModule {}\n';
+        const options: DeclarationOptions = {
+          metadata: 'imports',
+          name: 'module',
+          path: normalize('@samagra-x/stencil'),
+          module: normalize('/src/foo/foo.module.ts'),
+          symbol: 'Foo as F',
+          isPackage: false
+        };
+        const declarator = new ModuleImportDeclarator();
+        expect(declarator.declare(content, options)).toEqual(
+          "import { Module } from '@nestjs/common';\n" +
+          "import { TestModule, Foo as F } from '@samagra-x/stencil';\n" +
+            '\n' +
+            '@Module({})\n' +
+            'const x = " from ";\n' +
+            'console.error(" from ");\n' +
+            'export class FooModule {}\n',
+        );
+      });  
 });

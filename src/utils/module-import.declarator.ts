@@ -9,10 +9,31 @@ export class ModuleImportDeclarator {
     const toInsert = this.buildLineToInsert(options);
     const contentLines = content.split('\n');
     const finalImportIndex = this.findImportsEndpoint(contentLines);
-    contentLines.splice(finalImportIndex + 1, 0, toInsert);
-    return contentLines.join('\n');
-  }
+    const updatedContent = this.mergeImportStatements(contentLines, finalImportIndex, toInsert,options);
+    return updatedContent.join('\n');
+}
 
+private mergeImportStatements(contentLines: string[], finalImportIndex: number, toInsert: string, options: DeclarationOptions): string[] {
+  const importPattern = new RegExp(`^\\s*import\\s*{[^}]*}\\s*from\\s*(['"])${options.path.replace(/'/g, '')}\\1;?`, 'gm');
+  const existingImportLineIndex = contentLines.findIndex(line => importPattern.test(line));
+
+  if (existingImportLineIndex !== -1) {
+    const existingImportLine = contentLines[existingImportLineIndex];
+    const startIndex = existingImportLine.indexOf('{') + 2;
+    const endIndex = existingImportLine.lastIndexOf('}');
+
+    const existingSymbols = existingImportLine.substring(startIndex, endIndex).trim().split(',').map(symbol => symbol.trim());
+    const newSymbols = toInsert.substring(toInsert.indexOf('{') + 1, toInsert.lastIndexOf('}')).trim().split(',').map(symbol => symbol.trim());
+    
+    const mergedSymbols = [...new Set(existingSymbols.concat(newSymbols))];
+    const updatedImportLine = `import { ${mergedSymbols.join(', ')} } from '${options.path.replace(/'/g, '')}';`;
+
+    contentLines[existingImportLineIndex] = updatedImportLine;
+  } else {
+    contentLines.splice(finalImportIndex + 1, 0, toInsert);
+  }
+  return contentLines;
+}
   private findImportsEndpoint(contentLines: string[]): number {
     const reversedContent = Array.from(contentLines).reverse();
     const reverseImports = reversedContent.filter((line) =>

@@ -84,7 +84,13 @@ function addDeclarationToModule(options: ServiceOptions): Rule {
     if (!options.module) {
       return tree;
     }
-    const content = tree.read(options.module).toString();
+    const modulePath = options.module;
+    const content = tree.read(modulePath).toString();
+    const serviceName = `${strings.classify(options.name)}Service`;
+    if (content.includes(serviceName)) {
+      console.error(`Service name "${serviceName}" already exists in ${modulePath}.`);
+      throw new SchematicsException(`Service name "${serviceName}" already exists in ${modulePath}.`);
+    }
     const declarator: ModuleDeclarator = new ModuleDeclarator();
     tree.overwrite(
       options.module,

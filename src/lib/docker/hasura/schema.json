@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "Hasura-Service",
+  "title": "Hasura Container Insertion",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the generate."
+    },
+    "language": {
+      "type": "string",
+      "description": "Desired language (ts/js)."
+    },
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create Hasura service."
+    }
+  }
+}
