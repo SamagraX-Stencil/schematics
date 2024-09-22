@@ -17,6 +17,9 @@ import {
 import { ModuleFinder } from '../../utils/module.finder';
 import { TemporalServiceOptions } from './service-temporal.schema';
 import { import_register } from './imports';
+import { content } from './env-content';
+import { NodeDependencyType, addPackageJsonDependency, getPackageJsonDependency } from '../../utils/dependencies.utils';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
 export function main(options: TemporalServiceOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -65,7 +68,7 @@ function addImportToModule(options: TemporalServiceOptions): Rule {
 }
 
 function addProviderToModule(options: TemporalServiceOptions): Rule {
-  return (tree: Tree) => {
+  return (tree: Tree, context: SchematicContext) => {
     if (!options.path) {
       options.path = './src';
     }
@@ -84,6 +87,19 @@ function addProviderToModule(options: TemporalServiceOptions): Rule {
     } as DeclarationOptions);
 
     tree.overwrite(options.module, content);
+
+    const nodeDependencyRef = getPackageJsonDependency(
+      tree,
+      'nestjs-temporal',
+    );
+    if (!nodeDependencyRef) {
+      addPackageJsonDependency(tree, {
+        type: NodeDependencyType.Default,
+        name: 'nestjs-temporal',
+        version: '*',
+      });
+      context.addTask(new NodePackageInstallTask());
+    }
 
     return tree;
   };
