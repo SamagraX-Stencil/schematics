@@ -252,6 +252,11 @@
       "factory": "./lib/docker/fusionauth/fusionauth.factory#main",
       "description": "Add fusionauth service to docker-compose.yml",
       "schema": "./lib/docker/fusionauth/schema.json"
+    },
+    "pullservice": {
+      "factory": "./lib/pullservices/pullservice/pullservice.factory#main",
+      "description": "Add frontend service required for pull command",
+      "schema": "./lib/pullservices/pullservice/schema.json"
     }
   }
 }

@@ -1,0 +1,127 @@
+---
+import yaml from 'yaml';
+import fs from 'fs';
+import path from 'path';
+
+function getSpecData() {
+  let specFilePath;
+  const parentDir = path.resolve(process.cwd(), '..');
+  const nestCliPath = path.join(parentDir, 'nest-cli.json');
+
+  if (fs.existsSync(nestCliPath)) {
+    const nestCliContent = fs.readFileSync(nestCliPath, 'utf8');
+    const nestConfig = JSON.parse(nestCliContent);
+
+    if (nestConfig.specFile) {
+      specFilePath = path.resolve(nestConfig.specFile);
+    }
+  }
+
+  if (!specFilePath || !fs.existsSync(specFilePath)) {
+    specFilePath = path.join(parentDir,'spec.yaml');
+  }
+  if (fs.existsSync(specFilePath)) {
+    const specFileContent = fs.readFileSync(specFilePath, 'utf8');
+    return yaml.parse(specFileContent);
+  } else {
+    console.error("Error reading spec file: Neither 'specFile' in nest-cli.json nor 'spec.yaml' exists.");
+    return null;
+  }
+}
+
+const specData = getSpecData();
+const services = specData ? specData.services || [] : [];
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Overview</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fa;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #2c3e50;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .service-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .service-item {
+        background: #ecf0f1;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .service-name {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .service-status {
+        font-size: 14px;
+        color: #27ae60;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+        color: #7f8c8d;
+      }
+
+      .btn {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        background-color: #3498db;
+        color: #ffffff;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Available Services</h1>
+      <ul class="service-list">
+        {services.map(service => (
+          <li class="service-item">
+            <span class="service-name">{service}</span>
+            <span class="service-status">✔️ Active</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </body>
+</html>

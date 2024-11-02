@@ -17,7 +17,6 @@ import {
 import { ModuleFinder } from '../../utils/module.finder';
 import { TemporalServiceOptions } from './service-temporal.schema';
 import { import_register } from './imports';
-import { content } from './env-content';
 import { NodeDependencyType, addPackageJsonDependency, getPackageJsonDependency } from '../../utils/dependencies.utils';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
